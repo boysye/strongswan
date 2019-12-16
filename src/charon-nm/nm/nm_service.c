@@ -26,8 +26,6 @@
 
 #include <stdio.h>
 
-G_DEFINE_TYPE(NMStrongswanPlugin, nm_strongswan_plugin, NM_TYPE_VPN_SERVICE_PLUGIN)
-
 /**
  * Private data of NMStrongswanPlugin
  */
@@ -45,6 +43,8 @@ typedef struct {
 	/* name of the connection */
 	char *name;
 } NMStrongswanPluginPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE(NMStrongswanPlugin, nm_strongswan_plugin, NM_TYPE_VPN_SERVICE_PLUGIN)
 
 #define NM_STRONGSWAN_PLUGIN_GET_PRIVATE(o) \
 			(G_TYPE_INSTANCE_GET_PRIVATE ((o), \
@@ -901,8 +901,6 @@ static void nm_strongswan_plugin_class_init(
 {
 	NMVpnServicePluginClass *parent_class = NM_VPN_SERVICE_PLUGIN_CLASS(strongswan_class);
 
-	g_type_class_add_private(G_OBJECT_CLASS(strongswan_class),
-							 sizeof(NMStrongswanPluginPrivate));
 	parent_class->connect = connect_;
 	parent_class->need_secrets = need_secrets;
 	parent_class->disconnect = disconnect;
